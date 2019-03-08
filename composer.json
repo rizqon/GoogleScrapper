@@ -1,0 +1,26 @@
+{
+    "name": "rizqon/google-scrapper",
+    "description": "a library for scrapping google",
+    "keywords": ["google", "scrapper", "scrapping"],
+    "type": "library",
+    "require-dev": {
+        "phpunit/phpunit": "^8.1@dev"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "rizqon sadida",
+            "email": "rizqoqonsadida@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "guzzlehttp/guzzle": "~6.0",
+        "kub-at/php-simple-html-dom-parser": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+            "Rizqon\\GoogleScrapper\\" : "src/"
+        }
+    }
+}
