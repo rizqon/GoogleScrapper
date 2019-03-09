@@ -73,7 +73,7 @@ class Connection
     {
         $this->url = $url;
 
-        return $url;
+        return $this;
     }
 
     public function get(string $url = null, int $retry = 0)

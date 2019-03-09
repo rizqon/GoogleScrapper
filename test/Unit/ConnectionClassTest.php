@@ -5,7 +5,7 @@ use Rizqon\GoogleScrapper\Connection;
 
 class ConnectionClassTest extends TestCase
 {
-    /**  */
+    /** @test */
     public function open_connection_with_style_one()
     {
         $connection = new Connection;
@@ -14,7 +14,7 @@ class ConnectionClassTest extends TestCase
         $this->assertIsString($result);
     }
 
-    /**  */
+    /** @test */
     public function open_connection_with_style_two()
     {
         $connection = new Connection(
@@ -27,7 +27,7 @@ class ConnectionClassTest extends TestCase
         $this->assertIsString($result);
     }
 
-    /**  */
+    /** @test */
     public function open_connection_with_style_three()
     {
         $connection = new connection;
@@ -42,8 +42,6 @@ class ConnectionClassTest extends TestCase
     {
         $connection = new connection;
         $result = $connection->url('https://google.com')->get();
-
-        var_dump($result);
 
         $this->assertIsString($result);
     }
