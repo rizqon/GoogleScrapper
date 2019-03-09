@@ -90,11 +90,11 @@ class Connection
         }
 
         if(!is_null($this->proxy)){
-            $options[] = ['proxy' => $this->proxy];
+            $options = array_merge($options, ['proxy' => $this->proxy]);
         }
 
         if(!is_null($this->useragent)){
-            $options['headers'][] = ['User-Agent' => $this->useragent];
+            $options = array_merge_recursive( $options, [ 'headers' => [ 'User-Agent' => $this->useragent] ] );
         }
 
         $client = new Client($options);
