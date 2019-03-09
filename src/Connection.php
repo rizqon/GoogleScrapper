@@ -41,13 +41,48 @@ class Connection
         return $this;
     }
 
+    public function proxy(string $proxy)
+    {
+        $this->proxy = $proxy;
+
+        return $this;
+    }
+
+    public function useragent(string $useragent)
+    {
+        $this->useragent = $useragent;
+
+        return $this;
+    }
+
+    public function retry(int $retry)
+    {
+        $this->retry = $retry;
+
+        return $this;
+    }
+
+    public function referer(string $referer)
+    {
+        $this->referer = $referer;
+
+        return $this;
+    }
+
+    public function url(string $url)
+    {
+        $this->url = $url;
+
+        return $url;
+    }
+
     public function get(string $url = null, int $retry = 0)
     {
-        $context = [
+        $options = [
             'timeout' => $this->timeout,
             'headers' => [
-                'Referer' => $this->referer;
-            ];
+                'Referer' => $this->referer
+            ]
         ];
 
         if(!is_null($url)){
@@ -55,14 +90,14 @@ class Connection
         }
 
         if(!is_null($this->proxy)){
-            $context[] = ['proxy' => $this->proxy];
+            $options[] = ['proxy' => $this->proxy];
         }
 
         if(!is_null($this->useragent)){
-            $context['headers'][] = ['User-Agent' => $this->useragent];
+            $options['headers'][] = ['User-Agent' => $this->useragent];
         }
 
-        $client = new Client($context);
+        $client = new Client($options);
 
         try{
             $response = $client->request('GET', $this->url);
@@ -71,9 +106,8 @@ class Connection
         }catch (TransferException $e){
 
             if($retry > $this->retry){
-                return false;
+                throw $e;
             }
-
             return $this->get($url, $retry + 1);
         }
     }
