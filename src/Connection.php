@@ -19,6 +19,8 @@ class Connection
 
     public $url;
 
+    public $query;
+
     public function __construct(array $args = [])
     {
         if(!empty($args['url'])){
@@ -76,7 +78,14 @@ class Connection
         return $this;
     }
 
-    public function get(string $url = null, int $retry = 0)
+    public function query(string $query)
+    {
+        $this->query = $query;
+
+        return $this;
+    }
+
+    public function get(string $url = null, array $query = [],int $retry = 0)
     {
         $options = [
             'timeout' => $this->timeout,
@@ -85,12 +94,20 @@ class Connection
             ]
         ];
 
+        if(!empty($query)){
+            $this->query = $query;
+        }
+
         if(!is_null($url)){
             $this->url = $url;
         }
 
         if(!is_null($this->proxy)){
             $options = array_merge($options, ['proxy' => $this->proxy]);
+        }
+
+        if(!is_null($query)){
+            $options = array_merge($options, [ 'query' => $this->query]);
         }
 
         if(!is_null($this->useragent)){
