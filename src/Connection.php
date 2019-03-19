@@ -78,14 +78,22 @@ class Connection
         return $this;
     }
 
+<<<<<<< HEAD
     public function query(array $query)
+=======
+    public function query(string $query)
+>>>>>>> dev-master
     {
         $this->query = $query;
 
         return $this;
     }
 
+<<<<<<< HEAD
     public function get(string $url = null, int $retry = 0)
+=======
+    public function get(string $url = null, array $query = [],int $retry = 0)
+>>>>>>> dev-master
     {
         $options = [
             'timeout' => $this->timeout,
@@ -94,12 +102,20 @@ class Connection
             ]
         ];
 
+        if(!empty($query)){
+            $this->query = $query;
+        }
+
         if(!is_null($url)){
             $this->url = $url;
         }
 
         if(!is_null($this->proxy)){
             $options = array_merge($options, ['proxy' => $this->proxy]);
+        }
+
+        if(!is_null($query)){
+            $options = array_merge($options, [ 'query' => $this->query]);
         }
 
         if(!is_null($this->useragent)){
