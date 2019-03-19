@@ -19,6 +19,8 @@ class Connection
 
     public $url;
 
+    public $query;
+
     public function __construct(array $args = [])
     {
         if(!empty($args['url'])){
@@ -76,6 +78,13 @@ class Connection
         return $this;
     }
 
+    public function query(array $query)
+    {
+        $this->query = $query;
+
+        return $this;
+    }
+
     public function get(string $url = null, int $retry = 0)
     {
         $options = [
@@ -100,7 +109,9 @@ class Connection
         $client = new Client($options);
 
         try{
-            $response = $client->request('GET', $this->url);
+            $response = $client->request('GET', $this->url, [
+                'query' => $this->query;
+            ]);
 
             return (string) $response->getBody();
         }catch (TransferException $e){
